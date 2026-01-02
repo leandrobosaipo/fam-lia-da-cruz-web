@@ -47,6 +47,34 @@ export const siteConfig = {
     data: "19 de janeiro de 2014",
     ano: 2014,
   },
+  
+  // SEO - URLs base
+  url: {
+    base: "https://igrejafamiliadacruz.com.br",
+    home: "https://igrejafamiliadacruz.com.br",
+    mensagens: "https://igrejafamiliadacruz.com.br/mensagens",
+  },
+  
+  // SEO - Meta tags por página
+  seo: {
+    home: {
+      title: "Igreja Família da Cruz | Cuiabá - Uma igreja para todos que amam a Jesus",
+      description: "Igreja Família da Cruz em Cuiabá. Uma igreja evangélica para todos aqueles que amam a Jesus e desejam servi-lo! Cultos: Domingo 18h e Quinta 19h30. Venha nos visitar!",
+      keywords: "igreja, família da cruz, cuiabá, igreja evangélica cuiabá, culto evangélico cuiabá, igreja cristã cuiabá, adoração, família, cristã, igreja em cuiabá",
+    },
+    mensagens: {
+      title: "Mensagens dos Pastores | Igreja Família da Cruz - Cuiabá",
+      description: "Assista às mensagens e sermões dos pastores da Igreja Família da Cruz em Cuiabá. Seja edificado pela Palavra de Deus e fortaleça sua fé e sua casa.",
+      keywords: "mensagens, sermões, pastores, igreja família da cruz, culto online, palavra de deus, cuiabá",
+    },
+  },
+  
+  // Open Graph
+  og: {
+    image: "https://igrejafamiliadacruz.com.br/og-image.jpg", // Será atualizado quando imagem real estiver disponível
+    type: "website",
+    locale: "pt_BR",
+  },
 };
 
 // Conteúdo institucional
