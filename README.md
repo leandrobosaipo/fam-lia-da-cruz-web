@@ -204,6 +204,21 @@ Após o deploy, verifique:
 "start": "serve -s dist -l 8080"
 ```
 
+#### Erro npm ci - lock file desatualizado
+
+**Problema**: Erro `npm ci can only install packages when your package.json and package-lock.json are in sync` ou `Missing: serve@... from lock file`.
+
+**Solução**: 
+- O `Dockerfile` já está configurado para usar `npm install` em vez de `npm ci`, que é mais tolerante a lock files desatualizados
+- Se ainda ocorrer erro, atualize o `package-lock.json` localmente:
+  ```bash
+  npm install
+  git add package-lock.json
+  git commit -m "Atualiza package-lock.json"
+  git push
+  ```
+- Ou use `npm install` diretamente no Dockerfile (já está configurado)
+
 #### Erro ao baixar nixpacks
 
 **Problema**: Erro `Command failed with exit code 22` ao tentar baixar o nixpacks, ou mensagem sobre arquitetura não suportada (`x86_64-unknown-linux-musl`).
@@ -221,7 +236,7 @@ Após o deploy, verifique:
 - Use **auto-detect** no Build Pack em vez de especificar `Nixpacks` manualmente
 - O Easypanel detectará automaticamente que é um projeto Node.js através do `package.json`
 - Não é necessário arquivo `nixpacks.toml` - remova-o se existir
-- Configure o Build Command manualmente: `npm ci && npm run build`
+- Configure o Build Command manualmente: `npm install && npm run build`
 
 #### Build falha
 
