@@ -89,6 +89,22 @@ Na seção **Source**:
 
 #### 3. Configurar Build
 
+**Opção A - Usando Docker (Recomendado para evitar problemas com nixpacks):**
+
+Na seção **Build**:
+
+- **Build Pack**: Selecione `Docker`
+- **Dockerfile Path**: Deixe vazio (ou `/`) - o Easypanel detectará automaticamente o `Dockerfile` na raiz
+- **Build Command**: Deixe vazio (o Dockerfile já define tudo)
+
+> **Nota**: O `Dockerfile` já está configurado e faz:
+> - Build multi-stage para otimizar o tamanho da imagem
+> - Instala dependências com `npm ci`
+> - Executa `npm run build`
+> - Serve a aplicação com `serve` na porta 8080
+
+**Opção B - Usando Nixpacks (se Docker não estiver disponível):**
+
 Na seção **Build**:
 
 - **Build Pack**: Deixe em **auto-detect** (o Easypanel detectará automaticamente que é um projeto Node.js/Vite)
@@ -101,14 +117,18 @@ Na seção **Build**:
 
 #### 4. Configurar Start Command
 
-Na seção **Start/Run**:
+**Se estiver usando Docker:**
+- **Start Command**: Deixe vazio (o Dockerfile já define o CMD)
 
+**Se estiver usando Nixpacks:**
 - **Start Command**: `npm start`
 
-> **Explicação**: O script `start` no `package.json` executa `serve -s dist -l 8080`, que:
-> - Serve a pasta `dist` (output do build do Vite)
-> - Usa modo SPA (`-s`) para React Router funcionar corretamente
-> - Escuta na porta `8080`
+> **Explicação**: 
+> - Com Docker: O `Dockerfile` já define `CMD ["serve", "-s", "dist", "-l", "8080"]`
+> - Com Nixpacks: O script `start` no `package.json` executa `serve -s dist -l 8080`, que:
+>   - Serve a pasta `dist` (output do build do Vite)
+>   - Usa modo SPA (`-s`) para React Router funcionar corretamente
+>   - Escuta na porta `8080`
 
 #### 5. Configurar Port
 
@@ -139,11 +159,15 @@ Este projeto não requer variáveis de ambiente. Se precisar adicionar no futuro
 | Seção | Campo | Valor |
 |-------|-------|-------|
 | **Source** | Repository | Seu repositório GitHub |
-| **Source** | Branch | `main` ou `master` |
-| **Build** | Build Pack | `auto-detect` (ou `Nixpacks`) |
-| **Build** | Build Command | `npm ci && npm run build` |
-| **Start** | Start Command | `npm start` |
-| **Port** | Port | `8080` |
+| Seção | Campo | Valor (Docker) | Valor (Nixpacks) |
+|-------|-------|----------------|------------------|
+| **Source** | Repository | Seu repositório GitHub | Seu repositório GitHub |
+| **Source** | Branch | `main` ou `master` | `main` ou `master` |
+| **Build** | Build Pack | `Docker` | `auto-detect` (ou `Nixpacks`) |
+| **Build** | Dockerfile Path | (vazio ou `/`) | - |
+| **Build** | Build Command | (vazio) | `npm ci && npm run build` |
+| **Start** | Start Command | (vazio) | `npm start` |
+| **Port** | Port | `8080` | `8080` |
 | **Resources** | CPU | `0.25` (mínimo) |
 | **Resources** | Memory | `512MB` (recomendado) |
 
@@ -184,7 +208,16 @@ Após o deploy, verifique:
 
 **Problema**: Erro `Command failed with exit code 22` ao tentar baixar o nixpacks, ou mensagem sobre arquitetura não suportada (`x86_64-unknown-linux-musl`).
 
-**Solução**: 
+**Solução (Recomendada)**: Use Docker diretamente:
+1. O projeto já inclui um `Dockerfile` na raiz
+2. No Easypanel, configure:
+   - **Build Pack**: Selecione `Docker` em vez de `Nixpacks` ou `auto-detect`
+   - **Dockerfile Path**: Deixe vazio (ou `/` se necessário) - o Easypanel detectará automaticamente
+   - **Start Command**: Deixe vazio (o Dockerfile já define o CMD)
+   - **Port**: `8080`
+3. Faça o deploy novamente
+
+**Solução Alternativa** (se Docker não estiver disponível):
 - Use **auto-detect** no Build Pack em vez de especificar `Nixpacks` manualmente
 - O Easypanel detectará automaticamente que é um projeto Node.js através do `package.json`
 - Não é necessário arquivo `nixpacks.toml` - remova-o se existir
@@ -230,10 +263,18 @@ Após o deploy, verifique:
 
 Os seguintes arquivos são necessários para o deploy no Easypanel:
 
+**Com Docker (Recomendado):**
+- `Dockerfile` - Configuração do Docker para build e deploy (já existe)
+- `package.json` - Contém scripts de build (já existe)
+- `vite.config.ts` - Configuração do Vite (já existe)
+
+**Com Nixpacks:**
 - `package.json` - Contém scripts de build e start (com script `start` e dependência `serve`)
 - `vite.config.ts` - Configuração do Vite (já existe)
 
-> **Nota**: O Easypanel detecta automaticamente projetos Node.js através do `package.json`. Não é necessário arquivo `nixpacks.toml` - o Easypanel usa auto-detect.
+> **Nota**: 
+> - **Docker**: O `Dockerfile` já está configurado e é a opção mais confiável para evitar problemas com nixpacks
+> - **Nixpacks**: O Easypanel detecta automaticamente projetos Node.js através do `package.json`. Não é necessário arquivo `nixpacks.toml` - o Easypanel usa auto-detect.
 
 ## Deploy alternativo (Lovable)
 
