@@ -65,7 +65,7 @@ export function Footer() {
                 <span className="w-2 h-2 bg-turquoise rounded-full mt-2 flex-shrink-0" />
                 <div>
                   <p className="font-semibold text-primary-foreground">
-                    Culto de Celebração
+                    Culto da Família
                   </p>
                   <p className="text-sm">{siteConfig.horarios.domingo}</p>
                 </div>
@@ -74,7 +74,7 @@ export function Footer() {
                 <span className="w-2 h-2 bg-turquoise rounded-full mt-2 flex-shrink-0" />
                 <div>
                   <p className="font-semibold text-primary-foreground">
-                    Culto de Ensino
+                    Culto da Conquista
                   </p>
                   <p className="text-sm">{siteConfig.horarios.quinta}</p>
                 </div>

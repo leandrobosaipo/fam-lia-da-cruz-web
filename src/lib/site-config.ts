@@ -33,7 +33,7 @@ export const siteConfig = {
   // Contato
   contato: {
     email: "contato@igrejafamiliadacruz.com.br",
-    whatsapp: "+55 65 99999-9999", // Placeholder
+    whatsapp: "+55 65 3054-2564", // Placeholder
   },
   
   // URLs de mídia (placeholders para serem atualizadas)

@@ -2,26 +2,29 @@ import { motion } from "framer-motion";
 import { Instagram, ExternalLink, Heart, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site-config";
+import InstagramDestaque1 from "@/assets/instagram1.jpg";
+import InstagramDestaque2 from "@/assets/instagram2.jpg";
+import InstagramDestaque3 from "@/assets/instagram3.jpeg";
 
 // Posts simulados do Instagram - podem ser substituídos por integração real
 const instagramPosts = [
   {
     id: "1",
-    image: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=400&h=400&fit=crop",
+    image: InstagramDestaque1,
     likes: 156,
     comments: 12,
     caption: "A família é um projeto de Deus! 🏠❤️",
   },
   {
     id: "2",
-    image: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=400&h=400&fit=crop",
+    image: InstagramDestaque2,
     likes: 203,
     comments: 18,
     caption: "Culto especial de louvor e adoração 🙏",
   },
   {
     id: "3",
-    image: "https://images.unsplash.com/photo-1609234656388-0ff363383899?w=400&h=400&fit=crop",
+    image: InstagramDestaque3,
     likes: 178,
     comments: 24,
     caption: "Batismo nas águas - novas vidas para Cristo! 💧",

@@ -280,7 +280,7 @@ export default function Mensagens() {
                     <Input
                       id="telefone"
                       type="tel"
-                      placeholder="(65) 99999-9999"
+                      placeholder="+55 65 3054-2564"
                       className="mt-1.5"
                       {...register("telefone")}
                       aria-invalid={errors.telefone ? "true" : "false"}

@@ -65,9 +65,9 @@ export function Header() {
             />
             <div className="hidden sm:block">
               <h1 className="font-heading text-lg md:text-xl font-bold text-primary-foreground leading-tight">
-                {siteConfig.nome}
+                {/* {siteConfig.nome} */}
               </h1>
-              <p className="text-xs text-turquoise-light">{siteConfig.cidade}</p>
+              {/* <p className="text-xs text-turquoise-light">{siteConfig.cidade}</p> */}
             </div>
           </a>
 

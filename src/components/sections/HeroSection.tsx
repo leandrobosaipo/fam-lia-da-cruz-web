@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Play, MapPin, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig, versiculos } from "@/lib/site-config";
-import heroBackground from "@/assets/hero-background.jpg";
+import heroBackground from "@/assets/bg-hero-slide-ifc-2026.min.jpg";
 
 export function HeroSection() {
   return (
