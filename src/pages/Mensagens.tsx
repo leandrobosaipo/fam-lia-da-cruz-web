@@ -13,6 +13,8 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/hooks/use-toast";
 import { siteConfig } from "@/lib/site-config";
+import { SEOHead } from "@/components/SEO/SEOHead";
+import { Breadcrumbs } from "@/components/SEO/Breadcrumbs";
 
 // Schema de validação do formulário
 const prayerRequestSchema = z.object({
@@ -94,10 +96,68 @@ export default function Mensagens() {
     setIsSubmitting(false);
   };
 
+  // BreadcrumbList Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": siteConfig.url.home,
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Mensagens",
+        "item": siteConfig.url.mensagens,
+      },
+    ],
+  };
+
+  // VideoObject Schema para o vídeo selecionado
+  const videoSchema = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": selectedVideo.title,
+    "description": `Mensagem dos pastores da ${siteConfig.nomeCompleto}: ${selectedVideo.title}`,
+    "thumbnailUrl": `https://img.youtube.com/vi/${selectedVideo.id}/maxresdefault.jpg`,
+    "uploadDate": selectedVideo.date,
+    "contentUrl": `https://www.youtube.com/watch?v=${selectedVideo.id}`,
+    "embedUrl": `https://www.youtube.com/embed/${selectedVideo.id}`,
+    "publisher": {
+      "@type": "Organization",
+      "name": siteConfig.nomeCompleto,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteConfig.url.base}${siteConfig.media.logoUrl}`,
+      },
+    },
+  };
+
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title={siteConfig.seo.mensagens.title}
+        description={siteConfig.seo.mensagens.description}
+        keywords={siteConfig.seo.mensagens.keywords}
+        canonical={siteConfig.url.mensagens}
+      />
+      
+      {/* Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
+      />
+      
       <Header />
-      <main className="pt-24 md:pt-32">
+      <Breadcrumbs items={[{ label: "Mensagens", href: "/mensagens" }]} />
+      <main className="pt-4 md:pt-8">
         {/* Hero Section */}
         <section className="bg-gradient-hero py-16 md:py-24">
           <div className="container mx-auto px-4">
