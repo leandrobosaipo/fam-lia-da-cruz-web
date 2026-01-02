@@ -62,7 +62,7 @@ This project is built with:
 
 ## Deploy no Easypanel
 
-Este projeto está configurado para deploy no Easypanel usando Nixpacks. Siga os passos abaixo para configurar o serviço.
+Este projeto está configurado para deploy no Easypanel. O Easypanel detecta automaticamente projetos Node.js/Vite através do `package.json`. Siga os passos abaixo para configurar o serviço.
 
 ### Pré-requisitos
 
@@ -91,13 +91,13 @@ Na seção **Source**:
 
 Na seção **Build**:
 
-- **Build Pack**: `Nixpacks` (ou deixe em auto-detect)
-- **Build Command**: Deixe vazio (o `nixpacks.toml` já configura isso automaticamente)
+- **Build Pack**: Deixe em **auto-detect** (o Easypanel detectará automaticamente que é um projeto Node.js/Vite)
+- **Build Command**: `npm ci && npm run build`
 
-> **Nota**: O arquivo `nixpacks.toml` na raiz do projeto já configura automaticamente:
-> - Instalação de dependências com `npm ci`
-> - Build com `npm run build`
-> - Start com `npm start`
+> **Nota**: O Easypanel detectará automaticamente:
+> - Que é um projeto Node.js através do `package.json`
+> - Instalará dependências automaticamente
+> - Você precisa especificar o Build Command manualmente: `npm ci && npm run build`
 
 #### 4. Configurar Start Command
 
@@ -140,8 +140,8 @@ Este projeto não requer variáveis de ambiente. Se precisar adicionar no futuro
 |-------|-------|-------|
 | **Source** | Repository | Seu repositório GitHub |
 | **Source** | Branch | `main` ou `master` |
-| **Build** | Build Pack | `Nixpacks` |
-| **Build** | Build Command | (deixe vazio - usa nixpacks.toml) |
+| **Build** | Build Pack | `auto-detect` (ou `Nixpacks`) |
+| **Build** | Build Command | `npm ci && npm run build` |
 | **Start** | Start Command | `npm start` |
 | **Port** | Port | `8080` |
 | **Resources** | CPU | `0.25` (mínimo) |
@@ -180,6 +180,16 @@ Após o deploy, verifique:
 "start": "serve -s dist -l 8080"
 ```
 
+#### Erro ao baixar nixpacks
+
+**Problema**: Erro `Command failed with exit code 22` ao tentar baixar o nixpacks, ou mensagem sobre arquitetura não suportada (`x86_64-unknown-linux-musl`).
+
+**Solução**: 
+- Use **auto-detect** no Build Pack em vez de especificar `Nixpacks` manualmente
+- O Easypanel detectará automaticamente que é um projeto Node.js através do `package.json`
+- Não é necessário arquivo `nixpacks.toml` - remova-o se existir
+- Configure o Build Command manualmente: `npm ci && npm run build`
+
 #### Build falha
 
 **Problema**: O build falha durante o deploy.
@@ -187,7 +197,8 @@ Após o deploy, verifique:
 **Soluções**:
 - Verifique se todas as dependências estão no `package.json`
 - Verifique os logs do build no Easypanel para erros específicos
-- Certifique-se de que o Node.js 18+ está disponível (configurado no `nixpacks.toml`)
+- Certifique-se de que o Build Command está correto: `npm ci && npm run build`
+- Verifique se o Node.js está sendo detectado corretamente (o Easypanel usa auto-detect)
 
 #### Porta não encontrada
 
@@ -219,9 +230,10 @@ Após o deploy, verifique:
 
 Os seguintes arquivos são necessários para o deploy no Easypanel:
 
-- `package.json` - Contém scripts de build e start
-- `nixpacks.toml` - Configuração do Nixpacks para build e start
+- `package.json` - Contém scripts de build e start (com script `start` e dependência `serve`)
 - `vite.config.ts` - Configuração do Vite (já existe)
+
+> **Nota**: O Easypanel detecta automaticamente projetos Node.js através do `package.json`. Não é necessário arquivo `nixpacks.toml` - o Easypanel usa auto-detect.
 
 ## Deploy alternativo (Lovable)
 
