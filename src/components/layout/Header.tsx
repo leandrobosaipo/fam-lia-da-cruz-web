@@ -57,17 +57,16 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-3">
+          <a href="/" className="flex items-center gap-3" aria-label="Ir para página inicial">
             <img
               src={logo}
               alt={`Logo ${siteConfig.nome}`}
               className="h-12 md:h-14 w-auto"
             />
             <div className="hidden sm:block">
-              <h1 className="font-heading text-lg md:text-xl font-bold text-primary-foreground leading-tight">
-                {/* {siteConfig.nome} */}
-              </h1>
-              {/* <p className="text-xs text-turquoise-light">{siteConfig.cidade}</p> */}
+              <span className="font-heading text-lg md:text-xl font-bold text-primary-foreground leading-tight">
+                {siteConfig.nome}
+              </span>
             </div>
           </a>
 

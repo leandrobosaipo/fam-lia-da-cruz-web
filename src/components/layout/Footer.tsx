@@ -102,7 +102,9 @@ export function Footer() {
               <p>CEP: {siteConfig.endereco.cep}</p>
             </address>
             <a
-              href="#"
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteConfig.endereco.completo)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-turquoise hover:text-turquoise-light transition-colors mt-4 text-sm"
             >
               Ver no Google Maps

@@ -84,7 +84,7 @@ export function MessagesSection() {
                     <div className="relative aspect-video overflow-hidden">
                       <img
                         src={video.thumbnail}
-                        alt={video.title}
+                        alt={`Thumbnail do vídeo: ${video.title} - Mensagem dos pastores da Igreja Família da Cruz`}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
                       />

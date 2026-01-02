@@ -14,7 +14,7 @@ export function HeroSection() {
       <div className="absolute inset-0">
         <img
           src={heroBackground}
-          alt=""
+          alt="Fundo decorativo da Igreja Família da Cruz em Cuiabá"
           className="w-full h-full object-cover"
           aria-hidden="true"
         />

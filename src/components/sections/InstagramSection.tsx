@@ -93,7 +93,7 @@ export function InstagramSection() {
             >
               <img
                 src={post.image}
-                alt={post.caption}
+                alt={`Post do Instagram da ${siteConfig.nomeCompleto}: ${post.caption}`}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
               />
